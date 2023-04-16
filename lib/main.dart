@@ -20,7 +20,8 @@ void main() async {
           username: "thanhphong", password: "15122002", name: "Thanh Phong"),
     );
 
-    print(user);
+    final note = await prisma.note.create(
+        data: const NoteCreateInput(title: "New Note", content: "Test Prisma"));
   } finally {
     await prisma.$disconnect();
   }
