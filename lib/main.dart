@@ -2,8 +2,30 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'MaterialColor.dart';
 
+import 'package:orm/logger.dart';
+
+import './generated/prisma_client.dart';
 // Color myColor = Color(0xFFffb3c1);
-void main() => runApp(MyApp());
+
+final prisma = PrismaClient(
+  stdout: Event.values, // print all events to the console
+  datasources: const Datasources(
+    db: 'mongodb+srv://pttp15122002:Uh7HUtXGGcRVdwI3@notexpert.gdoldu9.mongodb.net/test',
+  ),
+);
+void main() async {
+  try {
+    final user = await prisma.user.create(
+      data: const UserCreateInput(
+          username: "thanhphong", password: "15122002", name: "Thanh Phong"),
+    );
+
+    print(user);
+  } finally {
+    await prisma.$disconnect();
+  }
+  return runApp(MyApp());
+}
 
 enum _MenuValues {
   Share,
