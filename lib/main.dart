@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notexpert_mongo/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
 import 'MaterialColor.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: buildMaterialColor(Color(0xFFffb3c1)),
         scaffoldBackgroundColor: buildMaterialColor(Color(0xFFfff0f3)),
       ),
-      home: HomePage(),
+      home: SignUp(),
     );
   }
 }
@@ -239,7 +240,6 @@ class _EditNoteState extends State<EditNote> {
   String message = '';
 
   void _saveForm() async {
-    final prefs = await SharedPreferences.getInstance();
     if (_key.currentState?.validate() ?? false) {
       _key.currentState?.save();
       Navigator.pop(context, {'title': title, 'message': message});
